@@ -13,7 +13,7 @@ def df_to_table(df, name):
     """Receives a pandas dataframe and returns a GIS table in memory"""
     table = str(arcpy.management.CreateTable("memory", name).getOutput(0))  # Create a blank GIS table in memory
     for field in df.columns:  # Add all the fields from the dataframe
-        if pd.api.types.is_datetime64_any_dtype(field):  # If the field type is datetime64, add a Date field
+        if pd.api.types.is_datetime64_any_dtype(df[field]):  # If the field type is datetime64, add a Date field
             arcpy.management.AddField(table, field, "DATE")
         else:
             arcpy.management.AddField(table, field, "TEXT")
